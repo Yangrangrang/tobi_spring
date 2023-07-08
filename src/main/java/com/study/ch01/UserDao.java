@@ -7,9 +7,10 @@ import java.sql.*;
 public class UserDao {
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
-        Class.forName("com.mysql.cj.jdbc.Driver");
+//        Class.forName("com.mysql.cj.jdbc.Driver");
         // DB 연결을 위한 Connection
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB", "root","root");
+//        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB", "root","root");
+        Connection c = getConnection();
         // SQL 담기 (prepareStatement) : users 테이블 insert문
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id,name,password) value (?,?,?)"
@@ -30,8 +31,9 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root");
+//        Class.forName("com.mysql.cj.jdbc.Driver");
+//        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root");
+        Connection c = getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "SELECT * FROM users where id = ?"
@@ -53,11 +55,21 @@ public class UserDao {
         return user;
     }
 
+    // connection 메소드
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection c = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root"
+        );
+        return c;
+    }
+
+    // main test
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserDao dao = new UserDao();
 
         User user = new User();
-        user.setId("test1");
+        user.setId("test2");
         user.setName("yanghanna");
         user.setPassword("1234");
 
@@ -83,7 +95,7 @@ public class UserDao {
 * 1장의 중점은 오브젝트
 * 나눠져있지 않아 통으로 되어 있어
 * 그래서 내가 원하는거만 따로 못해
-* 
+*
 * */
 
 
