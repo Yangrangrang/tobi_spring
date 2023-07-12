@@ -6,9 +6,11 @@ import java.sql.*;
 
 public class UserDao {
     // 1.3 DAO확장 (독립된 Class)
-    private SimpleConnectionMaker simpleConnectionMaker;
+//    private SimpleConnectionMaker simpleConnectionMaker;
+    private ConnectionMaker connectionMaker;
     public UserDao(){
-        simpleConnectionMaker = new SimpleConnectionMaker();
+//        simpleConnectionMaker = new SimpleConnectionMaker();
+        connectionMaker = new DConnectionMaker();
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
@@ -16,7 +18,8 @@ public class UserDao {
         // DB 연결을 위한 Connection
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB", "root","root");
 //        Connection c = getConnection();
-        Connection c = simpleConnectionMaker.makeNewConnection();
+//        Connection c = simpleConnectionMaker.makeNewConnection();
+        Connection c = connectionMaker.makeConnection();
         // SQL 담기 (prepareStatement) : users 테이블 insert문
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id,name,password) value (?,?,?)"
@@ -40,8 +43,8 @@ public class UserDao {
 //        Class.forName("com.mysql.cj.jdbc.Driver");
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root");
 //        Connection c = getConnection();
-        Connection c = simpleConnectionMaker.makeNewConnection();
-
+//        Connection c = simpleConnectionMaker.makeNewConnection();
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement(
                 "SELECT * FROM users where id = ?"
         );
@@ -70,7 +73,7 @@ public class UserDao {
         UserDao dao = new UserDao();
 
         User user = new User();
-        user.setId("test5");
+        user.setId("test6");
         user.setName("yanghanna");
         user.setPassword("1234");
 
