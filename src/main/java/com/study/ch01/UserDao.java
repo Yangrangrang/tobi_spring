@@ -4,13 +4,19 @@ import com.mysql.jdbc.Driver;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
+    // 1.3 DAO확장 (독립된 Class)
+    private SimpleConnectionMaker simpleConnectionMaker;
+    public UserDao(){
+        simpleConnectionMaker = new SimpleConnectionMaker();
+    }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
 //        Class.forName("com.mysql.cj.jdbc.Driver");
         // DB 연결을 위한 Connection
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB", "root","root");
-        Connection c = getConnection();
+//        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
         // SQL 담기 (prepareStatement) : users 테이블 insert문
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id,name,password) value (?,?,?)"
@@ -33,7 +39,8 @@ public abstract class UserDao {
     public User get(String id) throws ClassNotFoundException, SQLException {
 //        Class.forName("com.mysql.cj.jdbc.Driver");
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root");
-        Connection c = getConnection();
+//        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "SELECT * FROM users where id = ?"
@@ -56,29 +63,29 @@ public abstract class UserDao {
     }
 
     // connection 메소드
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+//    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 
     // main test
-//    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-//        UserDao dao = new UserDao();
-//
-//        User user = new User();
-//        user.setId("test2");
-//        user.setName("yanghanna");
-//        user.setPassword("1234");
-//
-//        dao.add(user);
-//
-//        System.out.println(user.getId() + "등록");
-//
-//        User user2 = dao.get(user.getId());
-//
-//        System.out.println(user2.getId());
-//        System.out.println(user2.getName());
-//        System.out.println(user2.getPassword());
-//
-//        System.out.println(user2.getId() + "조회");
-//    }
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        UserDao dao = new UserDao();
+
+        User user = new User();
+        user.setId("test5");
+        user.setName("yanghanna");
+        user.setPassword("1234");
+
+        dao.add(user);
+
+        System.out.println(user.getId() + "등록");
+
+        User user2 = dao.get(user.getId());
+
+        System.out.println(user2.getId());
+        System.out.println(user2.getName());
+        System.out.println(user2.getPassword());
+
+        System.out.println(user2.getId() + "조회");
+    }
 }
 
 /*
