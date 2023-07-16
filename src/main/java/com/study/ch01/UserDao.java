@@ -8,9 +8,10 @@ public class UserDao {
     // 1.3 DAO확장 (독립된 Class)
 //    private SimpleConnectionMaker simpleConnectionMaker;
     private ConnectionMaker connectionMaker;
-    public UserDao(){
+    public UserDao(ConnectionMaker connectionMaker){
 //        simpleConnectionMaker = new SimpleConnectionMaker();
-        connectionMaker = new DConnectionMaker();
+//        connectionMaker = new DConnectionMaker();
+        this.connectionMaker = connectionMaker;
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
@@ -68,27 +69,6 @@ public class UserDao {
     // connection 메소드
 //    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 
-    // main test
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new UserDao();
-
-        User user = new User();
-        user.setId("test6");
-        user.setName("yanghanna");
-        user.setPassword("1234");
-
-        dao.add(user);
-
-        System.out.println(user.getId() + "등록");
-
-        User user2 = dao.get(user.getId());
-
-        System.out.println(user2.getId());
-        System.out.println(user2.getName());
-        System.out.println(user2.getPassword());
-
-        System.out.println(user2.getId() + "조회");
-    }
 }
 
 /*
