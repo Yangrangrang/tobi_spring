@@ -6,11 +6,13 @@ import java.sql.SQLException;
 public class UserDaoTest {
     // main test
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ConnectionMaker connectionMaker = new DConnectionMaker();
-        UserDao dao = new UserDao(connectionMaker);
+//        ConnectionMaker connectionMaker = new DConnectionMaker();
+//        UserDao dao = new UserDao(connectionMaker);
+
+        UserDao dao = new DaoFactory().userDao();
 
         User user = new User();
-        user.setId("test7");
+        user.setId("test8");
         user.setName("yanghanna");
         user.setPassword("1234");
 
