@@ -1,5 +1,8 @@
 package com.study.ch01;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.sql.SQLException;
 
 // UserDao의 클라이언트라고 볼 수 있다.
@@ -9,10 +12,13 @@ public class UserDaoTest {
 //        ConnectionMaker connectionMaker = new DConnectionMaker();
 //        UserDao dao = new UserDao(connectionMaker);
 
-        UserDao dao = new DaoFactory().userDao();
+//        UserDao dao = new DaoFactory().userDao();
+
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
-        user.setId("test8");
+        user.setId("test11");
         user.setName("yanghanna");
         user.setPassword("1234");
 
