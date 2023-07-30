@@ -18,7 +18,7 @@ public class UserDaoTest {
         UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
-        user.setId("test11");
+        user.setId("test12");
         user.setName("yanghanna");
         user.setPassword("1234");
 
@@ -33,5 +33,21 @@ public class UserDaoTest {
         System.out.println(user2.getPassword());
 
         System.out.println(user2.getId() + "조회");
+
+
+
+
+//        DaoFactory factory = new DaoFactory();
+//        UserDao dao1 = factory.userDao();
+//        UserDao dao2 = factory.userDao();
+//
+//        System.out.println(dao1);
+//        System.out.println(dao2);
+//
+//        UserDao dao3 = context.getBean("userDao", UserDao.class);
+//        UserDao dao4 = context.getBean("userDao", UserDao.class);
+//
+//        System.out.println(dao3);
+//        System.out.println(dao4);
     }
 }

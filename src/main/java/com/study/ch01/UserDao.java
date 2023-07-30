@@ -1,17 +1,34 @@
 package com.study.ch01;
 
 import com.mysql.jdbc.Driver;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.*;
 
 public class UserDao {
+    // 1.6 싱글톤
+    private static UserDao INSTANCE;
     // 1.3 DAO확장 (독립된 Class)
 //    private SimpleConnectionMaker simpleConnectionMaker;
+
+    // 초기에 설정하면 사용 중에는 바뀌지 않는 읽기 전용 인스턴스 변수
+    // 의존관계 주입을 위한 코드
     private ConnectionMaker connectionMaker;
+
+    // 매번 새로운 값으로 바귀는 정보를 담은 인스턴스 변수. (심각한 문제가 발생한다.)
+//    private Connection c;
+//    private User user;
+
+    // 의존관계 주입을 위한 코드
     public UserDao(ConnectionMaker connectionMaker){
 //        simpleConnectionMaker = new SimpleConnectionMaker();
 //        connectionMaker = new DConnectionMaker();
-        this.connectionMaker = connectionMaker;
+
+//        this.connectionMaker = connectionMaker;
+
+        // 의존관계 검색을 이용하는 UserDao 생성자
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
@@ -46,6 +63,9 @@ public class UserDao {
 //        Connection c = getConnection();
 //        Connection c = simpleConnectionMaker.makeNewConnection();
         Connection c = connectionMaker.makeConnection();
+
+//        this.c = connectionMaker.makeConnection();
+
         PreparedStatement ps = c.prepareStatement(
                 "SELECT * FROM users where id = ?"
         );
@@ -58,12 +78,17 @@ public class UserDao {
         user.setId(rs.getString("id"));
         user.setName(rs.getString("name"));
         user.setPassword(rs.getString("password"));
+//        this.user = new User();
+//        this.user.setId(rs.getString("id"));
+//        this.user.setName(rs.getString("name"));
+//        this.user.setPassword(rs.getString("password"));
 
         rs.close();
         ps.close();
         c.close();
 
         return user;
+//        return this.user;
     }
 
     // connection 메소드
