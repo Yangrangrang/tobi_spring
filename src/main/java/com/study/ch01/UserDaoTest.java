@@ -12,13 +12,13 @@ public class UserDaoTest {
 //        ConnectionMaker connectionMaker = new DConnectionMaker();
 //        UserDao dao = new UserDao(connectionMaker);
 
-//        UserDao dao = new DaoFactory().userDao();
+        UserDao dao = new DaoFactory().userDao();
 
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-        UserDao dao = context.getBean("userDao", UserDao.class);
+//        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+//        UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
-        user.setId("test12");
+        user.setId("test102");
         user.setName("yanghanna");
         user.setPassword("1234");
 

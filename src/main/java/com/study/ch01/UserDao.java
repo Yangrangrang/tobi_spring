@@ -24,11 +24,11 @@ public class UserDao {
 //        simpleConnectionMaker = new SimpleConnectionMaker();
 //        connectionMaker = new DConnectionMaker();
 
-//        this.connectionMaker = connectionMaker;
+        this.connectionMaker = connectionMaker;
 
         // 의존관계 검색을 이용하는 UserDao 생성자
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-        this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+//        this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
