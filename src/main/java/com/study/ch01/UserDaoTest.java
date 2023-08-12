@@ -2,6 +2,8 @@ package com.study.ch01;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -12,13 +14,17 @@ public class UserDaoTest {
 //        ConnectionMaker connectionMaker = new DConnectionMaker();
 //        UserDao dao = new UserDao(connectionMaker);
 
-        UserDao dao = new DaoFactory().userDao();
+//        UserDao dao = new DaoFactory().userDao();
 
 //        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 //        UserDao dao = context.getBean("userDao", UserDao.class);
 
+        // XML 설정파일 사용하도록 변환
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        UserDao dao = context.getBean("userDao", UserDao.class);
+
         User user = new User();
-        user.setId("test103");
+        user.setId("test104");
         user.setName("yanghanna");
         user.setPassword("1234");
 
