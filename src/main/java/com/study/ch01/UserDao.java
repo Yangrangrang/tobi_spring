@@ -20,15 +20,20 @@ public class UserDao {
 //    private User user;
 
     // 의존관계 주입을 위한 코드
-    public UserDao(ConnectionMaker connectionMaker){
+    //public UserDao(ConnectionMaker connectionMaker){
 //        simpleConnectionMaker = new SimpleConnectionMaker();
 //        connectionMaker = new DConnectionMaker();
 
-        this.connectionMaker = connectionMaker;
+    //    this.connectionMaker = connectionMaker;
 
         // 의존관계 검색을 이용하는 UserDao 생성자
 //        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 //        this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
+    //}
+
+    // 수정자 메소드
+    public void setConnectionMaker(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
