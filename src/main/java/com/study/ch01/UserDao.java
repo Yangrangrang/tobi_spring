@@ -3,17 +3,18 @@ package com.study.ch01;
 import com.mysql.jdbc.Driver;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDao {
     // 1.6 싱글톤
-    private static UserDao INSTANCE;
+//    private static UserDao INSTANCE;
     // 1.3 DAO확장 (독립된 Class)
 //    private SimpleConnectionMaker simpleConnectionMaker;
 
     // 초기에 설정하면 사용 중에는 바뀌지 않는 읽기 전용 인스턴스 변수
     // 의존관계 주입을 위한 코드
-    private ConnectionMaker connectionMaker;
+//    private ConnectionMaker connectionMaker;
 
     // 매번 새로운 값으로 바귀는 정보를 담은 인스턴스 변수. (심각한 문제가 발생한다.)
 //    private Connection c;
@@ -32,9 +33,16 @@ public class UserDao {
     //}
 
     // 수정자 메소드
-    public void setConnectionMaker(ConnectionMaker connectionMaker){
-        this.connectionMaker = connectionMaker;
+//    public void setConnectionMaker(ConnectionMaker connectionMaker){
+//        this.connectionMaker = connectionMaker;
+//    }
+
+    // DataSource 사용
+    private DataSource dataSource;
+    public void setDataSource(DataSource dataSource){
+        this.dataSource = dataSource;
     }
+
     public void add(User user) throws ClassNotFoundException, SQLException {
         // Class.forName : DB 드라이버 로드
 //        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -42,7 +50,11 @@ public class UserDao {
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB", "root","root");
 //        Connection c = getConnection();
 //        Connection c = simpleConnectionMaker.makeNewConnection();
-        Connection c = connectionMaker.makeConnection();
+//        Connection c = connectionMaker.makeConnection();
+
+        // DataSource 사용
+        Connection c = dataSource.getConnection();
+
         // SQL 담기 (prepareStatement) : users 테이블 insert문
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id,name,password) value (?,?,?)"
@@ -67,7 +79,10 @@ public class UserDao {
 //        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/SPRINGSTUDYDB","root","root");
 //        Connection c = getConnection();
 //        Connection c = simpleConnectionMaker.makeNewConnection();
-        Connection c = connectionMaker.makeConnection();
+//        Connection c = connectionMaker.makeConnection();
+
+        // DataSource 사용
+        Connection c = dataSource.getConnection();
 
 //        this.c = connectionMaker.makeConnection();
 
