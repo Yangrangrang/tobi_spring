@@ -14,5 +14,7 @@
     <bean id="userDao" class="com.study.ch01.UserDao">
 <!--        <property name="connectionMaker" ref="connectionMaker" />-->
         <property name="dataSource" ref="dataSource" />
+            <!--생성자로 처리 하려면-->
+<!--        <constructor-arg ref="dataSource" />-->
     </bean>
 </beans>
