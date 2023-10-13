@@ -1,20 +1,17 @@
 package com.review.ch01;
 
 import com.review.ch01.domain.User;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 
-public class Test {
+public class UserDaoConnectionCountingTest {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
         UserDao dao = context.getBean("userDao", UserDao.class);
-//        UserDao dao = new DaoFactory().userDao();
 
         User user = new User();
-        user.setId("userTest");
+        user.setId("userTest2");
         user.setName("yang");
         user.setPassword("yang");
 
@@ -31,17 +28,7 @@ public class Test {
         dao.delete(user2);
         System.out.println("DB 삭제");
 
-        DaoFactory factory = new DaoFactory();
-        UserDao dao1 = factory.userDao();
-        UserDao dao2 = factory.userDao();
-
-        System.out.println(dao1);
-        System.out.println(dao2);
-
-        UserDao dao3 = context.getBean("userDao", UserDao.class);
-        UserDao dao4 = context.getBean("userDao", UserDao.class);
-
-        System.out.println(dao3);
-        System.out.println(dao4);
+        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
+        System.out.println("Connection counter" + ccm.getCount());
     }
 }
