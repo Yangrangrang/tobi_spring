@@ -4,7 +4,7 @@ import com.review.ch01.domain.User;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
 
     private ConnectionMaker connectionMaker;
 
@@ -58,6 +58,4 @@ public abstract class UserDao {
         ps.close();
         c.close();
     }
-
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
