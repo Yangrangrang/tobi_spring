@@ -29,5 +29,12 @@ public class Test {
 
         dao.delete(user2);
         System.out.println("DB 삭제");
+
+        DaoFactory factory = new DaoFactory();
+        UserDao dao1 = factory.userDao();
+        UserDao dao2 = factory.userDao();
+
+        System.out.println(dao1);
+        System.out.println(dao2);
     }
 }
