@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Test {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ConnectionMaker connectionMaker = new NConnectionMaker();
+        ConnectionMaker connectionMaker = new DConnectionMaker();
 
         UserDao dao = new UserDao(connectionMaker);
 
