@@ -22,9 +22,9 @@ public class DaoFactory {
     }
      */
 
-    @Bean
-    public ConnectionMaker connectionMaker() {
-        return new DConnectionMaker();
+    @Bean // --------------------------------------------> <bean
+    public ConnectionMaker connectionMaker() { // ------->     id="connectionMaker"
+        return new DConnectionMaker(); // ---->     class="review.ch01.DConnectionMaker" />
 //        return new LocalDBConnectionMaker();
 //        return new ProductionDBConnectionMaker();
     }

@@ -14,7 +14,7 @@ public class Test {
 //        UserDao dao = new DaoFactory().userDao();
 
         User user = new User();
-        user.setId("userTest");
+        user.setId("userTest5");
         user.setName("yang");
         user.setPassword("yang");
 
