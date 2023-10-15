@@ -18,7 +18,9 @@
 <!--        <constructor-arg ref="dataSource" />-->
     </bean>
 
+    <bean id="connectionMaker" class="com.review.ch01.DConnectionMaker"/>
     <bean id="userDao" class="com.review.ch01.UserDao">
         <property name="connectionMaker" ref="connectionMaker" />
     </bean>
+
 </beans>
