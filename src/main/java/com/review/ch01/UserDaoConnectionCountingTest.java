@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class UserDaoConnectionCountingTest {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
         UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
@@ -28,7 +28,7 @@ public class UserDaoConnectionCountingTest {
         dao.delete(user2);
         System.out.println("DB 삭제");
 
-        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
-        System.out.println("Connection counter" + ccm.getCount());
+//        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
+//        System.out.println("Connection counter" + ccm.getCount());
     }
 }

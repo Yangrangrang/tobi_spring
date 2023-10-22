@@ -9,9 +9,14 @@ import java.sql.*;
 
 public class UserDao {
     private DataSource dataSource;
+    private ConnectionMaker connectionMaker;
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public void setConnectionMaker(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
     }
 
     public void add (User user) throws ClassNotFoundException, SQLException {

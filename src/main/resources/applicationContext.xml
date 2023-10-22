@@ -21,16 +21,16 @@
 <!--    <bean id="localDBConnectionMaker" class="com.review.ch01.localDBConnectionMaker"/>-->
 <!--    <bean id="testDBConnectionMaker" class="com.review.ch01.testDBConnectionMaker"/>-->
 <!--    <bean id="productionDBConnectionMaker" class="com.review.ch01.productionDBConnectionMaker"/>-->
-<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
-<!--        <property name="driverClass" value="com.mysql.jdbc.Driver" />-->
-<!--        <property name="url" value="jdbc:mysql://localhost:3306/SPRINGSTUDYDB" />-->
-<!--        <property name="username" value="root" />-->
-<!--        <property name="password" value="root" />-->
-<!--    </bean>-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/SPRINGSTUDYDB" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
 
-<!--    <bean id="userDao" class="com.review.ch01.UserDao">-->
-<!--        <property name="dataSource" ref="dataSource" />-->
+    <bean id="userDao" class="com.review.ch01.UserDao">
+        <property name="dataSource" ref="dataSource" />
 <!--        <property name="connectionMaker" ref="localDBConnectionMaker" />-->
-<!--    </bean>-->
+    </bean>
 
 </beans>
