@@ -24,7 +24,6 @@ public class UserDaoTest {
 
         User user2 = dao.get(user.getId());
 
-        System.out.println(user2.getId());
         System.out.println(user2.getName());
         System.out.println(user2.getPassword());
 
