@@ -60,4 +60,8 @@ public class UserDaoTest {
         assertThat(user2.getPassword()).isEqualTo(user.getPassword());
     }
 
+    public static void main(String[] args) {
+//        JUnitCore.main("com.study.ch02.UserDaoTest");
+    }
+
 }
