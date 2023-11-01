@@ -2,6 +2,7 @@ package com.study.ch01;
 
 import com.mysql.jdbc.Driver;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -93,11 +94,14 @@ public class UserDao {
         ps.setString(1, id);
 
         ResultSet rs = ps.executeQuery();
-        rs.next();
-        User user = new User();
-        user.setId(rs.getString("id"));
-        user.setName(rs.getString("name"));
-        user.setPassword(rs.getString("password"));
+
+        User user = null;
+        if(rs.next()){
+            user = new User();
+            user.setId(rs.getString("id"));
+            user.setName(rs.getString("name"));
+            user.setPassword(rs.getString("password"));
+        }
 //        this.user = new User();
 //        this.user.setId(rs.getString("id"));
 //        this.user.setName(rs.getString("name"));
@@ -106,6 +110,8 @@ public class UserDao {
         rs.close();
         ps.close();
         c.close();
+
+        if(user == null) throw new EmptyResultDataAccessException(1);
 
         return user;
 //        return this.user;
