@@ -2,10 +2,12 @@ package com.study.ch02;
 
 import com.study.ch01.User;
 import com.study.ch01.UserDao;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.SQLException;
 
@@ -95,6 +97,19 @@ public class UserDaoTest {
         dao.add(user3);
         assertThat(dao.getCount()).isSameAs(3);
 
+    }
+
+    @Test
+    public void getUserFailure() throws SQLException, ClassNotFoundException {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+
+        UserDao dao = context.getBean("userDao", UserDao.class);
+        dao.deleteAll();
+        assertThat(dao.getCount()).isSameAs(0);
+//
+        Assertions.assertThrows(EmptyResultDataAccessException.class, ()->{
+            dao.get("unknown_id");
+        });
     }
 
     public static void main(String[] args) {
