@@ -50,10 +50,12 @@ public class UserDaoTest {
         dao.deleteAll();
         assertThat(dao.getCount()).isSameAs(0);
 
-        User user = new User();
-        user.setId("gyumee2");
-        user.setName("김성철");
-        user.setPassword("springno1");
+//        User user = new User();
+//        user.setId("gyumee2");
+//        user.setName("김성철");
+//        user.setPassword("springno1");
+
+        User user = new User("test", "testUser", "testPw");
 
         dao.add(user);
         assertThat(dao.getCount()).isSameAs(1);
