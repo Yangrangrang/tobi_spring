@@ -47,12 +47,16 @@ public class UserDaoTest {
 
         UserDao dao = context.getBean("userDao", UserDao.class);
 
+        dao.deleteAll();
+        assertThat(dao.getCount()).isSameAs(0);
+
         User user = new User();
-        user.setId("gyumee1");
+        user.setId("gyumee2");
         user.setName("김성철");
         user.setPassword("springno1");
 
         dao.add(user);
+        assertThat(dao.getCount()).isSameAs(1);
 
         User user2 = dao.get(user.getId());
 
