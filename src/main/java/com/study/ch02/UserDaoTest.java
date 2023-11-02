@@ -3,6 +3,7 @@ package com.study.ch02;
 import com.study.ch01.User;
 import com.study.ch01.UserDao;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -44,11 +45,17 @@ public class UserDaoTest {
 //        }
 //
 //    }
+    private UserDao dao;
+
+    @BeforeEach
+    void setUp() {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        this.dao = context.getBean("userDao", UserDao.class);
+    }
+
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        UserDao dao = context.getBean("userDao", UserDao.class);
         User user1 = new User("test10", "test1", "test1");
         User user2 = new User("test20", "test2", "test2");
 
@@ -78,9 +85,7 @@ public class UserDaoTest {
 
     @Test
     public void count() throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 
-        UserDao dao = context.getBean("userDao", UserDao.class);
         User user1 = new User("test1", "test1", "test1");
         User user2 = new User("test2", "test2", "test2");
         User user3 = new User("test3", "test3", "test3");
@@ -101,9 +106,7 @@ public class UserDaoTest {
 
     @Test
     public void getUserFailure() throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 
-        UserDao dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
         assertThat(dao.getCount()).isSameAs(0);
 //
@@ -112,8 +115,8 @@ public class UserDaoTest {
         });
     }
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        JUnitCore.main("com.study.ch02.UserDaoTest");
-    }
+//    }
 
 }
