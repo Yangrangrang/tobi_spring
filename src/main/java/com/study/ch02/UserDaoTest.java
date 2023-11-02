@@ -47,17 +47,23 @@ public class UserDaoTest {
 //    }
     private UserDao dao;
 
+    private User user1;
+    private User user2;
+    private User user3;
+
+
     @BeforeEach
     void setUp() {
         ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
         this.dao = context.getBean("userDao", UserDao.class);
+
+        this.user1 = new User("test1", "test1", "test1");
+        this.user2 = new User("test2", "test2", "test2");
+        this.user3 = new User("test3", "test3", "test3");
     }
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-
-        User user1 = new User("test10", "test1", "test1");
-        User user2 = new User("test20", "test2", "test2");
 
         dao.deleteAll();
         assertThat(dao.getCount()).isSameAs(0);
@@ -85,10 +91,6 @@ public class UserDaoTest {
 
     @Test
     public void count() throws SQLException, ClassNotFoundException {
-
-        User user1 = new User("test1", "test1", "test1");
-        User user2 = new User("test2", "test2", "test2");
-        User user3 = new User("test3", "test3", "test3");
 
         dao.deleteAll();
         assertThat(dao.getCount()).isSameAs(0);
